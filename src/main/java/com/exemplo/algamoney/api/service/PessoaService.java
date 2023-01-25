@@ -12,6 +12,7 @@ import com.exemplo.algamoney.api.repository.PessoaRepository;
 @Service
 public class PessoaService {
 	
+
 	@Autowired
 	private PessoaRepository pessoaRepository;
 
@@ -28,7 +29,7 @@ public class PessoaService {
 		pessoaRepository.save(pessoaSalva);
 	}
 	
-	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
+	private Pessoa buscarPessoaPeloCodigo(Long codigo) {
 		Pessoa pessoaSalva = pessoaRepository.findById(codigo).get();
 		if (pessoaSalva == null) {
 			throw new EmptyResultDataAccessException(1);
