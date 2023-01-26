@@ -20,15 +20,13 @@ public class LancamentoService {
 	@Autowired 
 	private LancamentoRepository lancamentoRepository;
 
-	
-		
-	
-		public Lancamento salvar(Lancamento lancamento) {
-			Optional<Pessoa> pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo());
-			if (pessoa == null || pessoa.isPresent()) {
-				throw new PessoaInexistenteOuInativaException();
-			}
-			
-			return lancamentoRepository.save(lancamento);
+	public Lancamento salvar(Lancamento lancamento) {
+		Pessoa pessoa = pessoaRepository.findById(lancamento.getPessoa().getCodigo()).get();
+		if (pessoa == null || pessoa.isInativo()) {
+			throw new PessoaInexistenteOuInativaException();
 		}
+		
+		return lancamentoRepository.save(lancamento);
+	}
+	
 }
